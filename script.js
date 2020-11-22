@@ -1,7 +1,8 @@
 const FPS = 10;
 
 var score = 0;
-var health = 30;
+var health = 50;
+var redirected = false;
 
 var event;
 var eventChance = 75;
@@ -59,8 +60,20 @@ function update() {
 }
 
 function checkGameOver() {
-	if (health == 100) {
-		document.getElementById('win').style.display
+	score += health;
+	if (health >= 100 && !redirected) {
+		window.location.href = "win.html";
+		redirected = true;
+	}
+
+	if (year == 2030 && !redirected) {
+		window.location.href = "https://hackathon.crung.repl.co/slow.html";
+		redirected = true;
+	}
+
+	if (health <= 0 && !redirected) {
+		window.location.href = "https://hackathon.crung.repl.co/lose.html";
+		redirected = true;
 	}
 }
 
