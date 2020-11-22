@@ -1,0 +1,51 @@
+#box {
+  	position: fixed;
+	z-index: 1;
+    left:0px;
+    top:0px;
+    height:30px;
+    background-image:linear-gradient(45deg,green, red);
+  }
+  
+
+  body {
+                background-image:linear-gradient(45deg, #9edaf7, #b3ffb8);
+                font-family: "Segoe UI";
+            }
+.center {
+  text-align: center;
+}
+
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font:"Segoe UI";
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration:0.4s;
+}
+
+.button1 {border-radius:6px; width: 35%; background-color:rgb(173, 236, 202); color:#4CAF50;font:Segoe UI; border: 2px solid #4CAF50;}
+.button2 {border-radius:6px; width: 35%; background-color:#f0ada5; color:#ba4538;font:Segoe UI; border: 2px solid #ba4538;}
+
+.button1:hover {
+  background-color: #4CAF50;
+  color: rgb(173, 236, 202);
+}
+
+.button2:hover {
+  background-color: #ba4538;
+  color: #f0ada5;
+}
+
+#map {
+  height: 200px;
+  /* The height is 400 pixels */
+  width: 100%;
+  /* The width is the width of the web page */
+}
