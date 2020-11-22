@@ -1,7 +1,7 @@
 const FPS = 10;
 
 var score = 0;
-var health = 10;
+var health = 30;
 
 var event;
 var eventChance = 75;
@@ -40,6 +40,9 @@ var wTurbine = null;
 setInterval(update, 1000 / FPS);
 
 function update() {
+
+	checkGameOver();
+
     healthBar.style.width = (100 - health).toString() + "%";
     if (currentMonth > 11) {
         currentMonth -= 12;
@@ -55,36 +58,37 @@ function update() {
 
 }
 
+function checkGameOver() {
+	if (health == 100) {
+		document.getElementById('win').style.display
+	}
+}
+
 function fastForward() {
     console.log(health);
     clearOverlays();
-    currentMonth += Math.floor((Math.random() * 3) + 7);
+    currentMonth += Math.floor((Math.random() * 3) + 6);
 
 	var a = Math.random() * 100;
 	if (a < eventChance) {
     	random();
-	else {
+	} else {
 		console.log('Nothing happened');
 	}
 }
 
 function random() {
-	var a = Math.random() * 100;
-	if (a < eventChance) {
-		var t = Math.random() * (100 + choiceIncrease);
-		console.log(t);
-		if (t < health && goodEvents.length) {
-			goodEvent();
-		} else if (t > health && t < 100 && badEvents.length) {
-			badEvent();
-		} else if (t > 100 && choiceEvents.length) {
-			choiceEvent();
-		} else if (!goodEvents.length && !badEvents.length && !choiceEvents.length) {
-			console.log('All events used! Reverting to alien invasion in 3... 2... 1...');
-		} else {
-			random();
-		}
-	} 
+	var t = Math.random() * (100 + choiceIncrease);
+	console.log(t);
+	if (t < health && goodEvents.length) {
+		goodEvent();
+	} else if (t > health && t < 100 && badEvents.length) {
+		badEvent();
+	} else if (t > 100 && choiceEvents.length) {
+		choiceEvent();
+	} else if (!goodEvents.length && !badEvents.length && !choiceEvents.length) {
+		console.log('All events used! Reverting to alien invasion in 3... 2... 1...');
+	}
 }
 
 function badEvent() {
@@ -93,6 +97,7 @@ function badEvent() {
     console.log(t);
     t();
     badEvents.splice(badEvents.indexOf(t), 1);
+	score += -10;
 }
 
 function goodEvent() {
@@ -101,6 +106,7 @@ function goodEvent() {
     console.log(t);
     t();
     goodEvents.splice(goodEvents.indexOf(t), 1);
+	score += 30;
 }
 
 function choiceEvent() {
@@ -385,7 +391,7 @@ function coalMining() {
     const contentString =
         '<h1>Coal Mining Laws in West Virginia</h1>' +
         '<p>Your experts have determined that coal is releasing a lot of carbon emissions. To end this, they recommend making laws restricting coal mining. Will you follow their advice?</p>' +
-        '<button class="button button1" onclick="health += 10;clearOverlays();">Absolutely!</button>' + '<button class="button button2" onclick="health -= 10;clearOverlays();">No, keep them the same.</button>';
+        '<button class="button button1" onclick="score += 40;health += 10;clearOverlays();">Absolutely!</button>' + '<button class="button button2" onclick="score += -20;health -= 10;clearOverlays();">No, keep them the same.</button>';
     const infowindow = new google.maps.InfoWindow({
         content: contentString,
     });
@@ -414,7 +420,7 @@ function oilFracking() {
     const contentString =
         '<h1>Oil Fracking Offshore</h1>' +
         '<p>Fracking is causing major oil spills, which are ruining the ecosystems, and releasing methane into the atmosphere. Will you ban fracking, or let it slide?</p>' +
-        '<button class="button button1" onclick="health += 10;clearOverlays();">Ban it!</button>' + '<button class="button button2" onclick="health -= 10;clearOverlays();">Let it slide.</button>';
+        '<button class="button button1" onclick="score += 40;health += 10;clearOverlays();">Ban it!</button>' + '<button class="button button2" onclick="score += -20;health -= 10;clearOverlays();">Let it slide.</button>';
     const infowindow = new google.maps.InfoWindow({
         content: contentString,
     });
@@ -443,7 +449,7 @@ function electricCars() {
     const contentString =
         '<h1>Electric/Hybrid Cars</h1>' +
         '<p>Gasoline-fueled cars release immense amounts of CO2 into the atmosphere. Rather, hybrid and electric cars are much better alternatives. How will you make this happen? </p>' +
-        '<button class="button button1" onclick="health += 10;clearOverlays();">Use government funding to help car companies create more hybrids.</button>' + '<button class="button button2" onclick="health -= 10;clearOverlays();">Do nothing.</button>';
+        '<button class="button button1" onclick="score += 40;health += 10;clearOverlays();">Use government funding to help car companies create more hybrids.</button>' + '<button class="button button2" onclick="score += -20;health -= 10;clearOverlays();">Do nothing.</button>';
     const infowindow = new google.maps.InfoWindow({
         content: contentString,
     });
@@ -472,7 +478,7 @@ function geothermal() {
     const contentString =
         '<h1>Geothermal Crisis</h1>' +
         '<p>The geothermal plant in Iowa is requiring a lot of funding. Your financial advisors advise you to shut it down. Will you listen to them?</p>' +
-        '<button class="button button1" onclick="health += 10;clearOverlays();">No, keep the plant running.</button>' + '<button class="button button2" onclick="health -= 10;clearOverlays();">Shut it down.</button>';
+        '<button class="button button1" onclick="score += 40;health += 10;clearOverlays();">No, keep the plant running.</button>' + '<button class="button button2" onclick="score += -20;health -= 10;clearOverlays();">Shut it down.</button>';
     const infowindow = new google.maps.InfoWindow({
         content: contentString,
     });
@@ -501,7 +507,7 @@ function plasticBags() {
     const contentString =
         '<h1>Plastic Bags</h1>' +
         '<p>Currently, it costs 10 cents to use plastic bags in grocery stores. People are protesting against this law. What will you do?</p>' +
-        '<button class="button button1" onclick="health += 10;clearOverlays();">Keep the law.</button>' + '<button class="button button2" onclick="health -= 10;clearOverlays();">Remove the law.</button>';
+        '<button class="button button1" onclick="score += 40;health += 10;clearOverlays();">Keep the law.</button>' + '<button class="button button2" onclick="score += -20;health -= 10;clearOverlays();">Remove the law.</button>';
     const infowindow = new google.maps.InfoWindow({
         content: contentString,
     });
@@ -530,7 +536,7 @@ function parisAccord() {
     const contentString =
         '<h1>Paris Accord</h1>' +
         '<p>The Paris Agreement is an agreement within the United Nations to mitigate climate change. Currently, the US is not a part of it. Will you join it?</p>' +
-        '<button class="button button1" onclick="health += 10;clearOverlays();">Yes!</button>' + '<button class="button button2" onclick="health -= 10;clearOverlays();">Nah.</button>';
+        '<button class="button button1" onclick="score += 40;health += 10;clearOverlays();">Yes!</button>' + '<button class="button button2" onclick="score += -20;health -= 10;clearOverlays();">Nah.</button>';
     const infowindow = new google.maps.InfoWindow({
         content: contentString,
     });
@@ -559,7 +565,7 @@ function windTurbine() {
     const contentString =
         '<h1>Wind Turbine</h1>' +
         '<p>You want to set up more wind turbines, but your financial advisors say it will cost too much. What will you do?</p>' +
-        '<button class="button button1" onclick="health += 10;clearOverlays();">Follow through with your plan.</button>' + '<button class="button button2" onclick="health -= 10;clearOverlays();">Listen to them.</button>';
+        '<button class="button button1" onclick="score += 40;health += 10;clearOverlays();">Follow through with your plan.</button>' + '<button class="button button2" onclick="score += -20;health -= 10;clearOverlays();">Listen to them.</button>';
     const infowindow = new google.maps.InfoWindow({
         content: contentString,
     });
